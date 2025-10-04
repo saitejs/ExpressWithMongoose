@@ -5,6 +5,7 @@ const methodOverride = require('method-override')
 
 const Product = require('./models/products')
 
+const categories = ['fruit','vegetable','dairy', 'snacks', 'pizza']
 main().catch(err => console.log(err));
 
 async function main() {
@@ -32,7 +33,7 @@ app.get('/products', async (req, res)=>{
 })
 
 app.get('/products/new', (req, res)=>{
-    res.render('newProduct')
+    res.render('newProduct', {categories})
 })
 
 app.post('/products/new', async (req, res)=>{
@@ -52,7 +53,7 @@ app.get('/products/:id', async(req, res)=>{
 app.get('/products/:id/edit', async(req,res)=>{
     const {id}= req.params
     const product = await Product.findById(id)
-    res.render('editProduct', {product})
+    res.render('editProduct', {product, categories})
 })
 
 // updating in database so using runValidator so that it will validate everything before puting in the database and New: true is for to get the updated data back

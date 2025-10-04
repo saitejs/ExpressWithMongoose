@@ -22,10 +22,14 @@
               </div>
               <div class="mb-3">
                 <select class="form-select"  name= "category"aria-label="Default select example">
-                    <option selected>Open this select menu</option>
+
+                    <%for(let category of categories){%>
+                        <option value="<%=category%>"><%=category%></option>
+                    <%}%>
+                    <!-- <option selected>Open this select menu</option>
                     <option value="fruit">fruit</option>
                     <option value="vegetable">vegetable</option>
-                    <option value="dairy">dairy</option>
+                    <option value="dairy">dairy</option> -->
                   </select>
               </div>
             <div class="mb-3 form-check">
