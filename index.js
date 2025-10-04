@@ -26,9 +26,25 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'))
 
 app.get('/products', async (req, res)=>{
+
+    const {category} = req.query
+    const display = true
+    if(category){
+        const products = await Product.find({category})
+        res.render('home', {products, display: true })
+    }
+    else{
+        const products = await Product.find({})
+        
+        res.render('home', {products, display: false})
+    }
+
+
+
+    console.log(category)
     const products = await Product.find({})
     // console.log(products)
-    res.render('home', {products})
+   
    
 })
 
