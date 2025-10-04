@@ -56,6 +56,12 @@ app.get('/products/:id/edit', async(req,res)=>{
     res.render('editProduct', {product, categories})
 })
 
+app.delete("/products/:id/delete", async(req, res) => {
+    const {id}= req.params
+    await Product.findByIdAndDelete(id)
+    res.redirect('/products')
+    
+  });
 // updating in database so using runValidator so that it will validate everything before puting in the database and New: true is for to get the updated data back
 app.put('/products/:id', async (req, res)=>{
     const {id}= req.params
