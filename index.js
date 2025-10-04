@@ -20,6 +20,7 @@ async function main() {
 }
 
 app.set('view engine', 'ejs')
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/products', async (req, res)=>{
     const products = await Product.find({})
@@ -28,11 +29,25 @@ app.get('/products', async (req, res)=>{
    
 })
 
+app.get('/products/new', (req, res)=>{
+    res.render('newProduct')
+})
+
+app.post('/products/new', async (req, res)=>{
+    const newProduct = new Product(req.body)
+    await newProduct.save()
+    console.log(newProduct)
+   res.redirect('/products')
+})
+
+
 app.get('/products/:id', async(req, res)=>{
     const {id}= req.params
     const product = await Product.findById(id)
     res.render('detail', {product})
 })
+
+
 
 app.listen(3000, ()=>{
     console.log("Server is started on Port 3000");
